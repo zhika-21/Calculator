@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'
+import {data} from "./components/data"
+import "./App.css"
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+ const [change, setChange] = useState(null);
 
-export default App;
+ const toggle= i=>{
+  if(change===i){
+    return setChange(null)
+  }
+  setChange(i)
+
+ }
+  
+  return (
+ <div className="wrapper">
+   <div className="container">
+     {data.map((item,i)=>(
+       <div className="item">
+         <div className="title" onClick={()=>{
+           toggle(i)
+         }}>
+           <h2>{item.question}</h2>
+           <span>{change===i?"-":"+"}</span>
+         </div>
+         <div className={change ===i ? "content show" : "content"}>
+           <p>{item.answer}</p>
+         </div>
+       </div>
+     ))}
+   </div>
+ </div>
+  )
+}
+export default App
